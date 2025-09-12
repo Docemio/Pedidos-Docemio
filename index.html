@@ -112,7 +112,43 @@
   }
 }
 
-  </style>
+  
+/* Carrossel HOME */
+.slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 240px;
+  margin: 20px auto;
+  border: 4px solid #c57a52;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+.slide-track {
+  display: flex;
+  width: calc(240px * 20);
+  animation: scroll 90s linear infinite;
+}
+.slide {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slide img {
+  width: 200px;
+  height: auto;
+  border-radius: 12px;
+  border: 2px solid #eee;
+}
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+</style>
 </head>
 <body>
 <!-- Logo canto esquerdo -->
@@ -140,12 +176,42 @@
 
     <!-- Pages -->
     <main>
-      <section id="home" class="page active">
-        <div class="story" style="text-align:center">
-          <h2>Bem-vindo à Docemio</h2>
-          <p class="small">Monte seus donuts artesanais e faça seu pedido pelo WhatsApp. Rápido, simples e com o gostinho caseiro que você conhece.</p>
-        </div>
-      </section>
+      
+<section id="home" class="page active">
+  <div class="story" style="text-align:center">
+    <h2>Bem-vindo à Docemio</h2>
+    <p class="small">Monte seus donuts artesanais e faça seu pedido pelo WhatsApp. Rápido, simples e com o gostinho caseiro que você conhece.</p>
+  </div>
+
+  <!-- Carrossel automático -->
+  <div class="slider">
+    <div class="slide-track">
+      <div class="slide"><img src="img1.jpg" alt="Donut 1"></div>
+      <div class="slide"><img src="img2.jpg" alt="Donut 2"></div>
+      <div class="slide"><img src="img3.jpg" alt="Donut 3"></div>
+      <div class="slide"><img src="img4.jpeg" alt="Donut 4"></div>
+      <div class="slide"><img src="img5.jpg" alt="Donut 5"></div>
+      <div class="slide"><img src="img7.jpg" alt="Donut 6"></div>
+      <div class="slide"><img src="img8.jpg" alt="Donut 7"></div>
+      <div class="slide"><img src="img9.jpg" alt="Donut 8"></div>
+      <div class="slide"><img src="img10.jpg" alt="Donut 9"></div>
+      <div class="slide"><img src="img11.jpg" alt="Donut 10"></div>
+
+      <!-- repetição para loop contínuo -->
+      <div class="slide"><img src="img1.jpg" alt="Donut 1"></div>
+      <div class="slide"><img src="img2.jpg" alt="Donut 2"></div>
+      <div class="slide"><img src="img3.jpg" alt="Donut 3"></div>
+      <div class="slide"><img src="img4.jpeg" alt="Donut 4"></div>
+      <div class="slide"><img src="img5.jpg" alt="Donut 5"></div>
+      <div class="slide"><img src="img7.jpg" alt="Donut 6"></div>
+      <div class="slide"><img src="img8.jpg" alt="Donut 7"></div>
+      <div class="slide"><img src="img9.jpg" alt="Donut 8"></div>
+      <div class="slide"><img src="img10.jpg" alt="Donut 9"></div>
+      <div class="slide"><img src="img11.jpg" alt="Donut 10"></div>
+    </div>
+  </div>
+</section>
+
 
       <section id="quem" class="page">
         <div class="story">
@@ -174,11 +240,11 @@
                       <option value="Baunilha|4">Baunilha</option>
                       <option value="Chocolate|4">Chocolate</option>
                       <option value="Red Velvet|4">Red Velvet</option>
-                      <option value="Oreo|5">Oreo (+R$1,00)</option>
+                      <option value="Oreo|5">Oreo (+R$1,00)</option> 
                     </select>
                   </div>
                   <div class="field">
-                    <label>Recheios (R$2,00 cada; alguns +R$1)</label>
+                    <label>Recheios (R$2,00 cada)</label>
                     <div id="recheios">
                       <!-- checkboxes will be injected by JS for better control -->
                     </div>
@@ -192,6 +258,7 @@
                     <select id="cobertura">
                       <option value="Chocolate Preto|0">Chocolate Preto</option>
                       <option value="Chocolate Branco|0">Chocolate Branco</option>
+                      <option value="Crocante|0">Crocante</option>
                     </select>
                   </div>
                   <div class="field">
@@ -207,7 +274,7 @@
 
                 <div class="row" style="align-items:center">
                   <div style="flex:1">
-                    <label>Quantidade (min 1) — Você precisa montar 4 unidades no mínimo antes de pedir</label>
+                    <label>Quantidade mínima — Você precisa montar 4 unidades no mínimo antes de pedir</label>
                     <input type="number" id="quantidade" value="1" min="1">
                   </div>
                   <div style="width:160px;display:flex;flex-direction:column;gap:8px;justify-content:flex-end">
@@ -270,7 +337,10 @@
       const id = 'r'+idx;
       const wrapper = document.createElement('div');
       wrapper.style.marginBottom='6px';
-      wrapper.innerHTML = `<label style="font-weight:500"><input type=checkbox data-idx="${idx}" id="${id}"> ${r.name} ${r.extra?"(+R$1)":""}</label>`;
+     wrapper.innerHTML = `<label style="font-weight:500">
+  <input type="checkbox" data-idx="${idx}" id="${id}" ${r.disabled ? "disabled" : ""}>
+  ${r.name} ${r.extra ? "(+R$1)" : ""} ${r.disabled ? " — Esgotado" : ""}
+</label>`;
       recheiosDiv.appendChild(wrapper);
     });
 
@@ -391,7 +461,7 @@
       if(totalItems < 4){ alert('O pedido mínimo é de 4 unidades. Adicione mais donuts ao checklist antes de pedir.'); return; }
 
       // build message
-      let msg = `Olá Docemio! Gostaria de fazer um pedido:%0A`;
+      let msg = `Olá Docemio! Gostaria de fazer um pedido:`;
       checklist.forEach((c, i)=>{
         const linha = `\nItem ${i+1}: ${c.quantidade}x ${c.massa.split('|')[0]} - Recheios: ${c.recheios.join(', ')||'Sem recheio'}; Cobertura: ${c.cobertura.split('|')[0]}; Confeito: ${c.confeito.split('|')[0]}`;
         msg += `\n${linha}`;
