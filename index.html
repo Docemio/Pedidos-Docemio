@@ -53,11 +53,25 @@
     .subtitle{font-size:18px;margin-top:6px}
 
     /* Navigation buttons */
-    .nav {
+   .nav {
   display: flex;
   gap: 12px;
   justify-content: center;
   margin: 18px 0;
+}
+
+/* Somente no celular (largura até 600px) */
+@media (max-width: 600px) {
+  .nav {
+    overflow-x: auto;               /* permite rolagem */
+    -webkit-overflow-scrolling: touch; /* rolagem suave no iPhone */
+    justify-content: flex-start;    /* começa alinhado à esquerda */
+  }
+  .nav .btn {
+    flex: 0 0 auto; /* impede que os botões encolham demais */
+  }
+}
+
   overflow-x: auto;              /* habilita rolagem horizontal */
   -webkit-overflow-scrolling: touch; /* suaviza no iPhone */
 }
