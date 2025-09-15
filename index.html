@@ -148,6 +148,18 @@
   100% { transform: translateX(-50%); }
 }
 
+/* Animação para letras mudando de cor */
+.blink-text {
+  animation: colorBlink 2s infinite;
+}
+
+@keyframes colorBlink {
+  0%   { color: var(--accent); }  /* cor normal já definida no tema */
+  33%  { color: red; }
+  66%  { color: gold; }
+  100% { color: var(--accent); }
+}
+
 </style>
 </head>
 <body>
@@ -173,7 +185,7 @@
 
       <button class="btn secondary" onclick="alert('Cardápio em manutenção no momento');">Cardápio</button>
 
-      <a class="btn secondary" href="https://docemio.github.io/Cardapio-do-dia-Docemio/" target="_blank">Cardápio do Dia</a>
+     <a class="btn secondary blink-text" href="https://docemio.github.io/Cardapio-do-dia-Docemio/" target="_blank">Cardápio do Dia</a>
       <a class="btn secondary" href="https://docemio.github.io/cardapio-eventos-docemio/" target="_blank">Eventos</a>
 </nav>
 
