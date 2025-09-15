@@ -53,7 +53,17 @@
     .subtitle{font-size:18px;margin-top:6px}
 
     /* Navigation buttons */
-    .nav{display:flex;gap:12px;justify-content:center;margin:18px 0}
+    .nav {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 18px 0;
+  overflow-x: auto;              /* habilita rolagem horizontal */
+  -webkit-overflow-scrolling: touch; /* suaviza no iPhone */
+}
+.nav .btn {
+  flex: 0 0 auto; /* impede que os botões encolham */
+}
     .btn{background:linear-gradient(180deg,var(--card),var(--panel));border:2px solid rgba(90,52,27,0.12);padding:12px 18px;border-radius:10px;cursor:pointer;font-weight:700;color:var(--accent)}
     .btn.secondary{font-weight:600;font-size:14px}
 
